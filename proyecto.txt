@@ -1,0 +1,241 @@
+
+package com.mycompany.poligo;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+
+public class Geometria extends JFrame {
+
+    public int xpos;
+    public int ypos;
+    public int[] Posx = {580, 515, 490, 355, 380, 115, 185, 170, 255, 390, 580, 580, 640, 700, 765, 825, 825, 1070, 1150, 1290, 1025, 1050, 915, 890, 825, 825, 765, 700, 640, 580};
+    public int[] Posy = {40,  110, 85, 225, 250, 520, 590, 605, 690, 575, 770, 500, 470, 505, 470, 500, 770, 560, 640, 520, 250, 225, 85, 110, 40, 265, 290, 255, 290, 265};
+    public ArrayList<Point> puntos = new ArrayList();
+    public ArrayList<Point> puntosOrde = new ArrayList();
+    public ArrayList<Integer> puntosx = new ArrayList();
+    public ArrayList<Integer> Indice = new ArrayList();    
+    public int cont = 0;
+    
+    JButton boton = new JButton("Dibujar");
+    JButton boton2 = new JButton("Triangular");
+    JButton boton3 = new JButton("Limpiar");
+    JButton boton4 = new JButton("Tricolor");
+
+    public Geometria() {
+
+        boton.setBounds(30, 50, 150, 50);
+        boton.addActionListener(new poligon2());
+        boton2.setBounds(30, 100, 150, 50);
+        boton2.addActionListener(new poligon3());
+        boton3.setBounds(30, 200, 150, 50);
+        boton3.addActionListener(new poligon4());
+        boton4.setBounds(30, 150, 150, 50);
+        boton4.addActionListener(new poligon5());
+        this.setLayout(null);
+        this.setSize(1400, 900);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.add(boton);
+        this.add(boton2);
+        this.add(boton3);
+        this.add(boton4);
+    }
+
+    public static void main(String[] args) {
+        Geometria obj = new Geometria();
+        obj.setVisible(true);
+        
+    }
+
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.blue);
+        g.fillOval(xpos, ypos, 10, 10);
+    }
+
+    public void dibujar() {
+        Graphics g = this.getGraphics();
+        g.setColor(Color.BLACK);
+        g.drawPolygon(Posx, Posy, 30);
+    }
+    
+    public void ordenar(){
+        
+        int auxy = 0, auxx = 0, menory = 0, menorx = 0, j = 0, i = 0;
+        
+        for(i=0;i<Posy.length;i++){           
+            menory=Posy[i];
+            menorx=Posx[i];
+            for(j=i;j<Posy.length;j++){               
+                if(Posy[j]<menory){
+                    
+                    menory=Posy[j];
+                    menorx=Posx[j];
+                    auxx=Posx[i];
+                    auxy=Posy[i];
+                    Posy[i]=Posy[j];
+                    Posx[i]=Posx[j];
+                    Posy[j]=auxy;
+                    Posx[j]=auxx;
+                    puntos.add(new Point(Posx[j], Posy[j]));
+                    
+                }
+            }            
+            puntosOrde.add(new Point(Posx[i], Posy[i]));    
+            //puntos.add(new Point(Posx[i], Posy[j]));
+            Indice.add(i+1);
+            puntosx.add(Posx[i]);
+         
+            System.out.println("array orde"+puntosOrde.get(i).getX()+","+puntosOrde.get(i).getY());
+         
+           //System.out.println("array sin or"+puntos.get(j).getX()+","+puntos.get(j).getY());
+        }
+            //System.out.println("array sin or"+puntos.get(i).getX()+","+puntos.get(j).getY());
+    }
+
+    public void triangular() {
+
+        Graphics g = this.getGraphics();
+        g.setColor(Color.RED);
+        g.drawLine(515, 110, 580, 265);
+        g.drawLine(580, 500, 390, 575);
+        g.drawLine(580, 500, 580, 265);
+        g.drawLine(580, 500, 640, 290);
+        g.drawLine(640, 290, 640, 470);
+        g.drawLine(640, 290, 765, 470);
+        g.drawLine(640, 470, 765, 470);
+        g.drawLine(765, 470, 765, 290);
+        g.drawLine(765, 290, 640, 290);
+        g.drawLine(825, 500, 825, 265);
+        g.drawLine(825, 500, 765, 290);
+        g.drawLine(825, 500, 1070, 560);
+        g.drawLine(1070, 560, 1290, 520);
+        g.drawLine(1070, 560, 1025, 250);
+        g.drawLine(1070, 560, 825, 265);
+        g.drawLine(825, 265, 890, 110);
+        g.drawLine(825, 265, 915, 85);
+        g.drawLine(825, 265, 1050, 225);
+        g.drawLine(825, 265, 1025, 250);
+        g.drawLine(580, 265, 490, 85);
+        g.drawLine(580, 265, 355, 225);
+        g.drawLine(580, 265, 380, 250);
+        g.drawLine(580, 500, 380, 250);
+        g.drawLine(390, 575, 380, 250);
+        g.drawLine(390, 575, 115, 520);
+        g.drawLine(390, 575, 185, 590);
+        g.drawLine(390, 575, 170, 605);
+
+    }
+
+    public void Color() {
+        Graphics g = this.getGraphics();
+        g.setColor(Color.YELLOW);
+        g.fillOval(580, 40, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(515, 110, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(490, 85, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(355, 225, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(380, 250, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(115, 520, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(185, 590, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(170, 605, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(255, 690, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(390, 575, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(580, 770, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(580, 500, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(640, 470, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(700, 505, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(765, 470, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(825, 500, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(825, 770, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(1070, 560, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(1150, 640, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(1290, 520, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(1025, 250, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(1040, 220, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(915, 85, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(890, 110, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(825, 40, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(825, 265, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(765, 290, 10, 10);
+        g.setColor(Color.GREEN);
+        g.fillOval(700, 255, 10, 10);
+        g.setColor(Color.YELLOW);
+        g.fillOval(640, 290, 10, 10);
+        g.setColor(Color.BLUE);
+        g.fillOval(580, 265, 10, 10);
+    }
+
+    public class poligon2 implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            dibujar();
+        }
+
+    }
+
+    public class poligon3 implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            //triangular();
+            ordenar();
+        }
+
+    }
+
+    public class poligon4 implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            repaint();
+        }
+
+    }
+
+    public class poligon5 implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            Color();
+        }
+    }
+
+}
