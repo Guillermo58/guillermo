@@ -99,6 +99,50 @@ public class Geometria extends JFrame {
         }
             //System.out.println("array sin or"+puntos.get(i).getX()+","+puntos.get(j).getY());
     }
+        public int tipoVertice(Point verti){
+        int tipo; 
+        int i = 0;
+        Point P1 = puntosOrde.get(i+1);
+        Point P2 = puntosOrde.get(i-1);
+        
+        if(i == 0){
+            P2 = puntosOrde.get(puntosOrde.size());
+        }else
+            P2 = puntosOrde.get(i-1);
+        
+        if(P1.getY() > P2.getY() && verti.getY() > P2.getY()){
+            if(CalAngulo(P1, verti, P2) < 180){
+                return 1;
+            }else
+                return 3;  
+            
+        }else if(P1.getY() < verti.getY() && P2.getY() < verti.getY()){
+            if(CalAngulo(P1, verti, P2) < 180){
+                return 4;
+                
+            }else 
+                return 2;
+                
+        }else 
+            return 5;
+        
+    }
+    
+    public float CalAngulo(Point v1, Point v2, Point v3 ){
+        float angulo;
+        double ProductoP;
+        double MagnitudV1;
+        double MagnitudV2;
+        //double Cos;
+        
+        ProductoP = v2.getX() * v1.getX() + v2.getY() * v1.getY(); // multiplica las X y las Y de los vectores
+        MagnitudV1 = Math.sqrt(Math.pow(v1.getX(), 2) + Math.pow(v1.getY(), 2)); //
+        MagnitudV2 = Math.sqrt(Math.pow(v2.getX(), 2) + Math.pow(v2.getY(), 2)); //  Magnitud de un vector
+       // Cos = Math.cos(ProductoP / (MagnitudV1 * MagnitudV2));
+        //angulo = (float) Math.acos(Cos);
+        angulo = (float) Math.acos(Math.cos(ProductoP / (MagnitudV1 * MagnitudV2))); //Sacar el Coseno inverzo
+        return angulo;
+    }
 
     public void triangular() {
 
@@ -197,6 +241,7 @@ public class Geometria extends JFrame {
         g.setColor(Color.BLUE);
         g.fillOval(580, 265, 10, 10);
     }
+ 
 
     public class poligon2 implements ActionListener {
 
@@ -239,3 +284,4 @@ public class Geometria extends JFrame {
     }
 
 }
+
