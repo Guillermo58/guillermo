@@ -4,3 +4,18 @@ SELECT AVG(duracion) FROM vuelos;
 SELECT origen, destino, duracion, FROM vuelos ORDER BY duracion LIMIT 3 ;//este hace que en la se seleccione la tipo de columna en ka que se tiene dentro en el limit.
 
 la contra de el adminer esta relacionada con el heroku y la contra es FuentePura22@.
+
+
+UPDATE 
+
+DELETE
+--CREATE TABLE vuelos;
+DROP TABLE vuelos;
+
+SELECT * FROM vuelo ORDER BY duracion ASC;
+SELECT * FROM vuelo ORDER BY duracion DESC; 
+SELECT origen, COUNT(*) FROM vuelos GROUP BY origen HAVING COUNT(*) >1;
+SELECT origen, COUNT(*) FROM vuelos WHERE COUNT(*) > 2 GROUP BY origen;
+
+
+
