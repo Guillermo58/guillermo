@@ -1,0 +1,9 @@
+BEGIN:inicializar un bloque de transaccion.
+COMMIT: Pendiente en la otra clase.
+
+import os 
+from sqlalchemy import create_engine
+from sqlalchemy.com import scoped_session, sessionmaker
+
+engine = cerate_engine(os.getenv("DATABASE_URL"))
+DB=
